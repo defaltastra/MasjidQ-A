@@ -22,11 +22,74 @@ A full-stack web application for a Masjid Q&A/Forum where community members can 
 
 ## Quick Start
 
-### Prerequisites
+### Option 1: Docker (Recommended)
+
+The easiest way to run the application is using Docker Compose.
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Run with Docker Compose
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/defaltastra/MasjidQ-A/ && cd MasjidQ-A
+```
+
+2. **Start the application**
+```bash
+docker-compose up -d
+```
+
+3. **Seed the database** (first time only)
+```bash
+docker-compose exec backend node seed.js
+```
+
+4. **Open your browser** and navigate to `http://localhost`
+
+#### Docker Commands
+
+```bash
+# Start containers in detached mode
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop containers
+docker-compose down
+
+# Rebuild containers (after code changes)
+docker-compose up -d --build
+
+# Remove containers and volumes (reset database)
+docker-compose down -v
+```
+
+#### Environment Variables
+
+You can customize the deployment by setting environment variables:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SESSION_SECRET` | `masjid-qa-secret-change-in-production` | Secret key for session encryption |
+
+Create a `.env` file in the project root:
+```env
+SESSION_SECRET=your-secure-secret-key-here
+```
+
+---
+
+### Option 2: Manual Installation
+
+#### Prerequisites
 - Node.js (v14 or higher)
 - npm
 
-### Installation
+#### Installation
 
 1. **Clone or navigate to the project directory**
 ```bash
@@ -50,7 +113,7 @@ cd ../frontend
 npm install
 ```
 
-### Running the Application
+#### Running the Application
 
 1. **Start the backend server** (in the `backend` directory):
 ```bash
@@ -88,6 +151,7 @@ masjid/
 │   ├── db.js                # Database configuration
 │   ├── server.js            # Express server
 │   ├── seed.js              # Database seeding script
+│   ├── Dockerfile           # Backend Docker image
 │   ├── package.json
 │   └── README.md
 ├── frontend/
@@ -106,8 +170,11 @@ masjid/
 │   ├── index.html
 │   ├── vite.config.js
 │   ├── tailwind.config.js
+│   ├── Dockerfile           # Frontend Docker image
+│   ├── nginx.conf           # Nginx configuration
 │   ├── package.json
 │   └── README.md
+├── docker-compose.yml       # Docker Compose configuration
 └── README.md
 ```
 
@@ -142,6 +209,11 @@ masjid/
 - Vite - Build tool
 - Tailwind CSS - Styling
 - svelte-routing - Client-side routing
+
+### DevOps
+- Docker - Containerization
+- Docker Compose - Multi-container orchestration
+- Nginx - Reverse proxy and static file serving
 
 ## Features Showcase
 
